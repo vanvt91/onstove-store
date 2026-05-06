@@ -2,6 +2,8 @@ import { Page, Locator, expect } from "@playwright/test";
 import { BasePage } from "./BasePage";
 
 export class LoginPage extends BasePage {
+  protected readonly path = "/login";
+
   readonly emailInput: Locator;
   readonly passwordInput: Locator;
   readonly loginButton: Locator;
@@ -15,10 +17,6 @@ export class LoginPage extends BasePage {
     this.loginButton = page.getByRole("button", { name: /sign in|log in/i });
     this.errorMessage = page.locator('[data-testid="login-error"]');
     this.accountMenu = page.locator('[data-testid="account-menu"]');
-  }
-
-  async goto(): Promise<void> {
-    await this.page.goto("/login");
   }
 
   async login(email: string, password: string): Promise<void> {
