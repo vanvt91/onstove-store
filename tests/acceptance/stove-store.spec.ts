@@ -65,4 +65,26 @@ test.describe("Onstove Store", () => {
       expect(uiCount).toBe(apiResult.value.total_elements);
     });
   });
+
+  test("TC-004: Verify hover feature", async ({ app }) => {
+    await test.step("1. Open website", async () => {
+      await app.storePage.goto();
+    });
+
+    await test.step("2. Search for Love of and hit enter button", async () => {
+      await app.storePage.searchForGame("Love of");
+    });
+
+    await test.step("3. Switch to Card view", async () => {
+      await app.storePage.swtichToViewMode("card");
+    });
+
+    await test.step("4. Hover on game Pulse of Love", async () => {
+      await app.storePage.hoverOnGame("Pulse of Love");
+    });
+
+    await test.step("Assert: The heart icon and cart icon present", async () => {
+      await app.storePage.assertHeartIconPresent("Pulse of Love");
+    });
+  });
 });
