@@ -1,12 +1,12 @@
 import { Page } from "@playwright/test";
-import { LoginPage } from "../pages/LoginPage";
+import { StoveStorePage } from "../pages/StoveStorePage";
 
 export class AppContext {
   readonly page: Page;
-  readonly loginPage: LoginPage;
+  readonly storePage: StoveStorePage;
 
   constructor(page: Page) {
     this.page = page;
-    this.loginPage = new LoginPage(page);
+    this.storePage = new StoveStorePage(page);
   }
 }

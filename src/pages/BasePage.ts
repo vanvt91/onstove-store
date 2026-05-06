@@ -1,9 +1,10 @@
 import { Page, expect } from "@playwright/test";
 
-export abstract class BasePage {
-  protected abstract readonly path: string;
-
-  constructor(protected readonly page: Page) {}
+export class BasePage {
+  constructor(
+    readonly page: Page,
+    readonly path: string = "/",
+  ) {}
 
   async goto(): Promise<void> {
     await this.page.goto(this.path);
@@ -19,5 +20,13 @@ export abstract class BasePage {
 
   async expectTitle(pattern: string | RegExp): Promise<void> {
     await expect(this.page).toHaveTitle(pattern);
+  }
+
+  async refreshPage(): Promise<void> {
+    await this.page.reload();
+  }
+
+  async getPageTitle(): Promise<string> {
+    return this.page.title();
   }
 }
