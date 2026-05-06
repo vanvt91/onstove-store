@@ -7,6 +7,7 @@ Playwright + TypeScript test automation framework. Page Object Model with E2E (a
 ```bash
 yarn install
 yarn playwright install
+cp .env.example .env       # fill values if they differ from defaults
 ```
 
 ## Run
@@ -28,16 +29,17 @@ yarn playwright test --project=api
 ## Structure
 
 ```
+.env             # BASE_URL, API_URL (gitignored)
+.env.example     # template
 src/
-  api/         # API helpers (auth.api.ts)
-  config/      # base URLs
-  context/     # AppContext - holds page objects
-  data/        # test data
-  fixtures/    # extended `test` with `app` fixture
-  pages/       # POM (BasePage, LoginPage)
+  api/           # API helpers (auth.api.ts)
+  context/       # AppContext - holds page objects
+  data/          # test data
+  fixtures/      # extended `test` with `app` fixture
+  pages/         # POM (BasePage, LoginPage)
 tests/
-  acceptance/  # E2E specs
-  api/         # API specs
+  acceptance/    # E2E specs
+  api/           # API specs
 ```
 
 ## Conventions

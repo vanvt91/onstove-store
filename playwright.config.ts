@@ -1,5 +1,8 @@
+import "dotenv/config";
 import { defineConfig, devices } from "@playwright/test";
-import { BASE_URL, API_URL } from "./src/config/env.config";
+
+const BASE_URL = process.env.BASE_URL ?? "https://store.onstove.com";
+const API_URL = process.env.API_URL ?? "https://store.onstove.com";
 
 export default defineConfig({
   testDir: "./tests",
