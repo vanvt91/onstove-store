@@ -1,5 +1,7 @@
-import "dotenv/config";
+import { config } from "dotenv";
 import { defineConfig, devices } from "@playwright/test";
+
+config();
 
 const BASE_URL = process.env.BASE_URL ?? "https://store.onstove.com";
 const API_URL = process.env.API_URL ?? "https://store.onstove.com";
