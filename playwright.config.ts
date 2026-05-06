@@ -4,7 +4,7 @@ import { defineConfig, devices } from "@playwright/test";
 config();
 
 const BASE_URL = process.env.BASE_URL ?? "https://store.onstove.com";
-const API_URL = process.env.API_URL ?? "https://store.onstove.com";
+const API_URL = process.env.API_URL ?? "https://api.onstove.com";
 
 export default defineConfig({
   testDir: "./tests",

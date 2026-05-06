@@ -1,7 +1,12 @@
-import { test } from "../../src/fixtures/fixtures";
+import { test, expect } from "../../src/fixtures/fixtures";
+import { searchProducts } from "../../src/api/search.api";
 
 const PRODUCT_NO = 2173;
 const GAME_TITLE = "Action Taimanin";
+
+const SEARCH_QUERY = "action";
+const FILTER_BASE_GAME_API = "GAME";
+const FILTER_RPG_TAG_ID = "2";
 
 test.describe("Onstove Store", () => {
   test("TC-001: Verify age of 18+ warning on first visit, hides it after Continue and reload", async ({ app }) => {
@@ -29,6 +34,35 @@ test.describe("Onstove Store", () => {
     await test.step("2. Search for 'lord' → appears in search results", async () => {
       await app.storePage.searchForGame("lord");
       await app.storePage.assertSearchResultContains("Lord Nine");
+    });
+  });
+
+  test("TC-003: Verify search result count matches API total_elements", async ({ app, request }) => {
+    await test.step("1. Open homepage", async () => {
+      await app.storePage.goto();
+    });
+
+    await test.step(`2. Search for "${SEARCH_QUERY}" and submit`, async () => {
+      await app.storePage.searchForGame(SEARCH_QUERY);
+    });
+
+    await test.step("3. Apply Product Type = Base Game", async () => {
+      await app.storePage.applyFilter("Product Type", "Base Game");
+    });
+
+    await test.step("4. Apply Genre = RPG (UI has no 19+ Game Rating filter)", async () => {
+      await app.storePage.applyFilter("Genre", /^RPG/);
+    });
+
+    await test.step("Assert: UI count matches API total_elements", async () => {
+      const uiCount = await app.storePage.getDisplayedResultCount();
+      const apiResult = await searchProducts(request, {
+        q: SEARCH_QUERY,
+        types: FILTER_BASE_GAME_API,
+        tags: FILTER_RPG_TAG_ID,
+      });
+      expect(apiResult.value.total_elements).toBeGreaterThan(0);
+      expect(uiCount).toBe(apiResult.value.total_elements);
     });
   });
 });
