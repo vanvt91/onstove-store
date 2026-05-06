@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir f:\\\\onstove-store)",
+      "Bash(npx playwright *)",
+      "Read(//c/Users/elvis/**)",
+      "Read(//c/Users/elvis/.claude//**)",
+      "Bash(claude mcp *)",
+      "PowerShell(Get-Command claude -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Command npx -ErrorAction SilentlyContinue)",
+      "Bash(npx -y '@playwright/mcp@latest' --help)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_type",
+      "Bash(python -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d[0]['text']\\)\")",
+      "Bash(node -e \"const d=require\\('C:/Users/elvis/.claude/projects/f--onstove-store/79645ba2-2d89-4048-9108-bd2d087cd7e1/tool-results/toolu_01WQtPhGEb8jV6pR9P7R9o5X.json'\\); console.log\\(d[0].text\\);\")",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_network_requests",
+      "mcp__playwright__browser_network_request",
+      "Bash(node -e ' *)",
+      "Bash(curl -s 'https://api.onstove.com/store/v1.0/products/search?q=action&currency_code=USD&page=1&size=36&direction=SCORE&types=GAME&tags=2&tag_aggregation_size=0&genre_aggregation_size=6&on_discount=false&timestemp=1778078299777' -H 'accept: application/json')",
+      "Bash(curl -s 'https://api.onstove.com/store/v1.0/products/search?q=action&currency_code=USD&page=1&size=36&direction=SCORE&types=GAME&tags=2&on_discount=false' -H 'accept: application/json' -H 'origin: https://store.onstove.com' -H 'referer: https://store.onstove.com/' -o /tmp/api-direct.json -w 'HTTP %{http_code} bytes %{size_download}\\\\n')",
+      "Bash(curl -s 'https://api.onstove.com/store/v1.0/products/search?q=action&currency_code=USD&page=1&size=36&direction=SCORE&types=GAME&tags=2&on_discount=false' -H 'accept: application/json' -H 'origin: https://store.onstove.com' -H 'referer: https://store.onstove.com/' -o /f/onstove-store/.playwright-mcp/api-direct.json -w 'HTTP %{http_code} bytes %{size_download}\\\\n')",
+      "Bash(curl -s 'https://api.onstove.com/store/v1.0/products/search?q=action&currency_code=USD&page=1&size=36&direction=SCORE&types=GAME&tags=2&on_discount=false' -H 'accept: application/json' -H 'caller-id: indie-web-store' -H 'caller-detail: 5971c99a-f327-4014-bd09-1b743e47cbbf' -H 'x-uuid: 5971c99a-f327-4014-bd09-1b743e47cbbf' -H 'x-client-lang: en' -H 'x-lang: en' -H 'x-nation: SG' -H 'x-timezone: Asia/Singapore' -H 'x-utc-offset: 480' -H 'x-device-type: P01' -H 'origin: https://store.onstove.com' -H 'referer: https://store.onstove.com/' -H 'user-agent: Mozilla/5.0' -o /f/onstove-store/.playwright-mcp/api-direct.json -w 'HTTP %{http_code}\\\\n')"
+    ]
+  }
+}
