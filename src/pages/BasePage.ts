@@ -23,7 +23,7 @@ export class BasePage {
   }
 
   async refreshPage(): Promise<void> {
-    await this.page.reload();
+    await this.page.reload({ waitUntil: "domcontentloaded", timeout: 10_000 });
   }
 
   async getPageTitle(): Promise<string> {

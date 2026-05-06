@@ -5,7 +5,8 @@ export class StoveStorePage extends BasePage {
   readonly ageWarningMessage: Locator;
   readonly ageContinueButton: Locator;
   readonly gameTitle: Locator;
-  readonly serachInput: Locator;
+  readonly searchButton: Locator;
+  readonly searchInput: Locator;
   readonly searchResults: Locator;
 
   constructor(page: Page) {
@@ -15,7 +16,8 @@ export class StoveStorePage extends BasePage {
     );
     this.ageContinueButton = page.getByRole("button", { name: /continue/i });
     this.gameTitle = page.locator("h2");
-    this.serachInput = page.locator("[class*=stds-input-wrapper] input");
+    this.searchButton = page.locator("[class*=store_gnb_search] button");
+    this.searchInput = page.locator("[class*=stds-input-wrapper] input");
     this.searchResults = page.locator("[class*=store-search-layer] ul li");
   }
 
@@ -41,8 +43,9 @@ export class StoveStorePage extends BasePage {
   }
 
   async searchForGame(gameName: string): Promise<void> {
-    await this.serachInput.focus();
-    await this.serachInput.fill(gameName);
+    await this.searchButton.nth(0).click({ force: true });
+    await this.page.waitForTimeout(1000);
+    await this.searchInput.first().fill(gameName);
   }
 
   async assertSearchResultContains(expectedText: string | RegExp): Promise<void> {
