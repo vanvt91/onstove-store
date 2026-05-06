@@ -1,7 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
-import { BASE_URLS, API_URLS, getEnv } from "./src/config/env.config";
-
-const env = getEnv();
+import { BASE_URL, API_URL } from "./src/config/env.config";
 
 export default defineConfig({
   testDir: "./tests",
@@ -21,12 +19,12 @@ export default defineConfig({
     {
       name: "acceptance",
       testDir: "./tests/acceptance",
-      use: { ...devices["Desktop Chrome"], baseURL: BASE_URLS[env] },
+      use: { ...devices["Desktop Chrome"], baseURL: BASE_URL },
     },
     {
       name: "api",
       testDir: "./tests/api",
-      use: { baseURL: API_URLS[env] },
+      use: { baseURL: API_URL },
     },
   ],
 });

@@ -1,6 +1,6 @@
 # Onstove Store - Playwright
 
-Playwright + TypeScript test automation framework. Page Object Model with E2E (acceptance) and API tests.
+Playwright + TypeScript test automation framework. Page Object Model with E2E (acceptance) and API tests against `https://store.onstove.com`.
 
 ## Setup
 
@@ -12,11 +12,17 @@ yarn playwright install
 ## Run
 
 ```bash
-yarn test                  # all
-yarn test:acceptance       # E2E (browser)
+yarn test                  # all (acceptance + api)
+yarn test:acceptance       # E2E only
 yarn test:api              # API only
-ENV=live yarn test         # against live env (default: dev)
 yarn report                # open last HTML report
+```
+
+Or pick a project directly:
+
+```bash
+yarn playwright test --project=acceptance
+yarn playwright test --project=api
 ```
 
 ## Structure
@@ -24,7 +30,7 @@ yarn report                # open last HTML report
 ```
 src/
   api/         # API helpers (auth.api.ts)
-  config/      # env URLs (dev/live)
+  config/      # base URLs
   context/     # AppContext - holds page objects
   data/        # test data
   fixtures/    # extended `test` with `app` fixture
@@ -41,4 +47,4 @@ tests/
 - Assertions: `expect()` with web-first matchers (`toBeVisible`, `toHaveText`, ...)
 - Each test is self-contained (no cross-test dependencies)
 
-> URLs in `src/config/env.config.ts` and locators in `src/pages/LoginPage.ts` are placeholders — replace with real values for the target environment.
+> Locators in `src/pages/LoginPage.ts` are placeholders — replace with real selectors after inspecting the live site.
