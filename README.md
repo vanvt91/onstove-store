@@ -5,18 +5,18 @@ Playwright + TypeScript test automation framework. Page Object Model with E2E (a
 ## Setup
 
 ```bash
-npm install
-npx playwright install
+yarn install
+yarn playwright install
 ```
 
 ## Run
 
 ```bash
-npm test                  # all
-npm run test:acceptance   # E2E (browser)
-npm run test:api          # API only
-ENV=live npm test         # against live env (default: dev)
-npm run report            # open last HTML report
+yarn test                  # all
+yarn test:acceptance       # E2E (browser)
+yarn test:api              # API only
+ENV=live yarn test         # against live env (default: dev)
+yarn report                # open last HTML report
 ```
 
 ## Structure

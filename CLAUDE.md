@@ -30,8 +30,8 @@ Playwright + TypeScript automation framework using the Page Object Model.
 ## Running
 
 ```bash
-npm test                  # all
-npm run test:acceptance   # E2E only
-npm run test:api          # API only
-ENV=live npm test         # live env (default: dev)
+yarn test                  # all
+yarn test:acceptance       # E2E only
+yarn test:api              # API only
+ENV=live yarn test         # live env (default: dev)
 ```
