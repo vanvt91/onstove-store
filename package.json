@@ -1,0 +1,19 @@
+{
+  "name": "onstove-store-playwright",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:acceptance": "playwright test --project=acceptance",
+    "test:api": "playwright test --project=api",
+    "report": "playwright show-report"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.41.0",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  }
+}

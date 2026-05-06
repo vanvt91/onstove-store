@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+blob-report/
+.playwright/
+.playwright-mcp/
+
+# TypeScript
+*.tsbuildinfo
+dist/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local
+.envrc
+
+# Secrets
+credentials.json
+*.pem
+*.key
+*.p12
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Coverage
+coverage/
+/reports/
+/test-reports/
+
+# OS
+Thumbs.db
+
+# Optional local evidence/artifacts
+screenshots/tmp/
