@@ -22,7 +22,13 @@
       "Bash(curl -s 'https://api.onstove.com/store/v1.0/products/search?q=action&currency_code=USD&page=1&size=36&direction=SCORE&types=GAME&tags=2&tag_aggregation_size=0&genre_aggregation_size=6&on_discount=false&timestemp=1778078299777' -H 'accept: application/json')",
       "Bash(curl -s 'https://api.onstove.com/store/v1.0/products/search?q=action&currency_code=USD&page=1&size=36&direction=SCORE&types=GAME&tags=2&on_discount=false' -H 'accept: application/json' -H 'origin: https://store.onstove.com' -H 'referer: https://store.onstove.com/' -o /tmp/api-direct.json -w 'HTTP %{http_code} bytes %{size_download}\\\\n')",
       "Bash(curl -s 'https://api.onstove.com/store/v1.0/products/search?q=action&currency_code=USD&page=1&size=36&direction=SCORE&types=GAME&tags=2&on_discount=false' -H 'accept: application/json' -H 'origin: https://store.onstove.com' -H 'referer: https://store.onstove.com/' -o /f/onstove-store/.playwright-mcp/api-direct.json -w 'HTTP %{http_code} bytes %{size_download}\\\\n')",
-      "Bash(curl -s 'https://api.onstove.com/store/v1.0/products/search?q=action&currency_code=USD&page=1&size=36&direction=SCORE&types=GAME&tags=2&on_discount=false' -H 'accept: application/json' -H 'caller-id: indie-web-store' -H 'caller-detail: 5971c99a-f327-4014-bd09-1b743e47cbbf' -H 'x-uuid: 5971c99a-f327-4014-bd09-1b743e47cbbf' -H 'x-client-lang: en' -H 'x-lang: en' -H 'x-nation: SG' -H 'x-timezone: Asia/Singapore' -H 'x-utc-offset: 480' -H 'x-device-type: P01' -H 'origin: https://store.onstove.com' -H 'referer: https://store.onstove.com/' -H 'user-agent: Mozilla/5.0' -o /f/onstove-store/.playwright-mcp/api-direct.json -w 'HTTP %{http_code}\\\\n')"
+      "Bash(curl -s 'https://api.onstove.com/store/v1.0/products/search?q=action&currency_code=USD&page=1&size=36&direction=SCORE&types=GAME&tags=2&on_discount=false' -H 'accept: application/json' -H 'caller-id: indie-web-store' -H 'caller-detail: 5971c99a-f327-4014-bd09-1b743e47cbbf' -H 'x-uuid: 5971c99a-f327-4014-bd09-1b743e47cbbf' -H 'x-client-lang: en' -H 'x-lang: en' -H 'x-nation: SG' -H 'x-timezone: Asia/Singapore' -H 'x-utc-offset: 480' -H 'x-device-type: P01' -H 'origin: https://store.onstove.com' -H 'referer: https://store.onstove.com/' -H 'user-agent: Mozilla/5.0' -o /f/onstove-store/.playwright-mcp/api-direct.json -w 'HTTP %{http_code}\\\\n')",
+      "Bash(./node_modules/.bin/tsc --noEmit -p tsconfig.json)",
+      "mcp__playwright__browser_hover",
+      "mcp__playwright__browser_close",
+      "Bash(yarn remove *)",
+      "Bash(yarn install *)",
+      "Bash(yarn playwright *)"
     ]
   }
 }
