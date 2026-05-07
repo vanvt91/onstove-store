@@ -1,7 +1,5 @@
 import { Page, Locator, expect } from "@playwright/test";
 import { BasePage } from "./BasePage";
-import { PNG } from "pngjs";
-import pixelmatch from "pixelmatch";
 
 export class StoveStorePage extends BasePage {
   readonly ageWarningMessage: Locator;
@@ -17,6 +15,9 @@ export class StoveStorePage extends BasePage {
   readonly filterSeeMore: (group: string) => Locator;
   readonly filterValue: (group: string, value: string | RegExp) => Locator;
   readonly gameCardLink: (gameName: string) => Locator;
+  readonly gameCard: (gameName: string) => Locator;
+  readonly cardHoverLayer: (gameName: string) => Locator;
+  readonly cardHeartButton: (gameName: string) => Locator;
 
   constructor(page: Page) {
     super(page);
@@ -37,6 +38,9 @@ export class StoveStorePage extends BasePage {
     this.filterSeeMore = (group) => sectionOf(group).getByRole("button", { name: "See more", exact: true });
     this.filterValue = (group, value) => sectionOf(group).getByRole("checkbox", { name: value }).first();
     this.gameCardLink = (gameName) => page.getByRole("link", { name: new RegExp(gameName, "i") }).first();
+    this.gameCard = (gameName) => page.getByRole("listitem").filter({ hasText: gameName }).first();
+    this.cardHoverLayer = (gameName) => this.gameCard(gameName).locator(".inds-product-card-hover").first();
+    this.cardHeartButton = (gameName) => this.gameCard(gameName).locator(".inds-product-card-hover-btn button");
   }
 
   async gotoAgeRestriction(productNo: number): Promise<void> {
@@ -68,7 +72,7 @@ export class StoveStorePage extends BasePage {
     await this.page.waitForURL(/\/store\/search\?q=/, { timeout: 15_000 });
   }
 
-  async assertSearchResultContains(expectedText: string | RegExp): Promise<void> {
+  async assertFirstSearchResult(expectedText: string | RegExp): Promise<void> {
     await expect(this.searchResults.first()).toContainText(expectedText);
   }
 
@@ -89,7 +93,7 @@ export class StoveStorePage extends BasePage {
     return parseInt(count, 10);
   }
 
-  async swtichToViewMode(viewMode: "card" | "list"): Promise<void> {
+  async switchToViewMode(viewMode: "card" | "list"): Promise<void> {
     if (viewMode === "card") {
       await this.viewModeCard.nth(1).click();
     } else {
@@ -102,31 +106,10 @@ export class StoveStorePage extends BasePage {
     await target.hover();
   }
 
-  async assertHeartIconPresent(gameName: string): Promise<void> {
-    const cardItem = this.gameCardLink(gameName).locator("xpath=ancestor::li[1]");
-
-    await this.page.mouse.move(0, 0);
-    const beforeHover = await cardItem.screenshot();
-
+  async assertCardHover(gameName: string): Promise<void> {
+    await expect(this.cardHoverLayer(gameName)).toBeHidden();
     await this.hoverOnGame(gameName);
-    await this.page.waitForTimeout(200);
-    const afterHover = await cardItem.screenshot();
-
-    const beforePng = PNG.sync.read(beforeHover);
-    const afterPng = PNG.sync.read(afterHover);
-
-    expect(beforePng.width).toBe(afterPng.width);
-    expect(beforePng.height).toBe(afterPng.height);
-
-    const changedPixels = pixelmatch(
-      beforePng.data,
-      afterPng.data,
-      undefined,
-      beforePng.width,
-      beforePng.height,
-      { threshold: 0.1 },
-    );
-
-    expect(changedPixels).toBeGreaterThan(0);
+    await expect(this.cardHoverLayer(gameName)).toBeVisible();
+    await expect(this.cardHeartButton(gameName)).toBeVisible();
   }
 }

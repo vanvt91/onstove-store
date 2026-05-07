@@ -6,8 +6,8 @@ export class BasePage {
     readonly path: string = "/",
   ) {}
 
-  async goto(): Promise<void> {
-    await this.page.goto(this.path);
+  async goto(path?: string): Promise<void> {
+    await this.page.goto(path ?? this.path);
   }
 
   url(): string {

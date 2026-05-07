@@ -32,8 +32,9 @@ test.describe("Onstove Store", () => {
     });
 
     await test.step("2. Search for 'lord' → appears in search results", async () => {
+      const expectedFirstResult = "Lord Nine";
       await app.storePage.searchForGame("lord");
-      await app.storePage.assertSearchResultContains("Lord Nine");
+      await app.storePage.assertFirstSearchResult(expectedFirstResult);
     });
   });
 
@@ -67,24 +68,34 @@ test.describe("Onstove Store", () => {
   });
 
   test("TC-004: Verify hover feature", async ({ app }) => {
+    const GAME_NAME = "Pulse of Love";
+    const SEARCH_TERM = "Love of";
     await test.step("1. Open website", async () => {
       await app.storePage.goto();
     });
 
     await test.step("2. Search for Love of and hit enter button", async () => {
-      await app.storePage.searchForGame("Love of");
+      await app.storePage.searchForGame(SEARCH_TERM);
     });
 
     await test.step("3. Switch to Card view", async () => {
-      await app.storePage.swtichToViewMode("card");
+      await app.storePage.switchToViewMode("card");
     });
 
-    await test.step("4. Hover on game Pulse of Love", async () => {
-      await app.storePage.hoverOnGame("Pulse of Love");
+    await test.step("4. Hover on game Pulse of Love and assert hover effects", async () => {
+      await app.storePage.assertCardHover(GAME_NAME);
+    });
+  });
+
+  test("TC-005: Verify card hover overlay on 'The Scourge | Tai Ương'", async ({ app }) => {
+    const GAME_NAME = "The Scourge | Tai Ương";
+
+    await test.step("1. Open card-view search results for 'scourge'", async () => {
+      await app.storePage.goto("/vi/store/search?view=CARD&q=scourge");
     });
 
-    await test.step("Assert: The heart icon and cart icon present", async () => {
-      await app.storePage.assertHeartIconPresent("Pulse of Love");
+    await test.step(`2. Hover on '${GAME_NAME}' and assert hover overlay + heart button`, async () => {
+      await app.storePage.assertCardHover(GAME_NAME);
     });
   });
 });

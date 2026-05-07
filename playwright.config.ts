@@ -24,7 +24,11 @@ export default defineConfig({
     {
       name: "acceptance",
       testDir: "./tests/acceptance",
-      use: { ...devices["Desktop Chrome"], baseURL: BASE_URL },
+      use: {
+        ...devices["Desktop Chrome"],
+        baseURL: BASE_URL,
+        viewport: { width: 1920, height: 1080 },
+      },
     },
     {
       name: "api",
