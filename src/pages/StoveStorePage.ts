@@ -43,10 +43,6 @@ export class StoveStorePage extends BasePage {
     this.cardHeartButton = (gameName) => this.gameCard(gameName).locator(".inds-product-card-hover-btn button");
   }
 
-  async gotoAgeRestriction(productNo: number): Promise<void> {
-    await this.page.goto(`/restrictions/agree?productNo=${productNo}`);
-  }
-
   async clickAgeContinue(): Promise<void> {
     await this.ageContinueButton.click();
   }

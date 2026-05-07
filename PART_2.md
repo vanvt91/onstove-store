@@ -2,7 +2,7 @@
 
 ## Summary
 
-Built a Playwright + TypeScript automation framework for Stove Store from scratch, covering 4 acceptance test cases on `https://store.onstove.vn`.
+Built a Playwright + TypeScript automation framework for Stove Store from scratch, covering 4 acceptance test cases on `https://store.onstove.com`.
 
 **Framework:**
 

@@ -11,7 +11,7 @@ const FILTER_RPG_TAG_ID = "2";
 test.describe("Onstove Store", () => {
   test("TC-001: Verify age of 18+ warning on first visit, hides it after Continue and reload", async ({ app }) => {
     await test.step("1. Navigate to the age-gated product → warning appears", async () => {
-      await app.storePage.gotoAgeRestriction(PRODUCT_NO);
+      await app.storePage.goto(`/restrictions/agree?productNo=${PRODUCT_NO}`);
       await app.storePage.assertAgeWarningVisible();
     });
 
@@ -31,7 +31,7 @@ test.describe("Onstove Store", () => {
       await app.storePage.goto();
     });
 
-    await test.step("2. Search for 'lord' → appears in search results", async () => {
+    await test.step("2. Search for 'lord' → 'Lord Nine' appears in search results", async () => {
       const expectedFirstResult = "Lord Nine";
       await app.storePage.searchForGame("lord");
       await app.storePage.assertFirstSearchResult(expectedFirstResult);
@@ -70,6 +70,7 @@ test.describe("Onstove Store", () => {
   test("TC-004: Verify hover feature", async ({ app }) => {
     const GAME_NAME = "Pulse of Love";
     const SEARCH_TERM = "Love of";
+
     await test.step("1. Open website", async () => {
       await app.storePage.goto();
     });
