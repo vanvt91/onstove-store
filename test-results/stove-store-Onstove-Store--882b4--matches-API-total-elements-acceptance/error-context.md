@@ -433,7 +433,7 @@ Received: 97
                       - text: RPG Adventure Strategy
                     - generic [ref=e467]:
                       - generic [ref=e468]: Review 130
-                      - generic [ref=e469]: Recommended 70
+                      - generic [ref=e469]: Recommended 69
                   - generic [ref=e470]:
                     - generic [ref=e471]: "-50%"
                     - generic [ref=e472]:
