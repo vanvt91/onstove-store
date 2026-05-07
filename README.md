@@ -49,4 +49,15 @@ tests/
 - Assertions: `expect()` with web-first matchers (`toBeVisible`, `toHaveText`, ...)
 - Each test is self-contained (no cross-test dependencies)
 
-> Locators in `src/pages/LoginPage.ts` are placeholders — replace with real selectors after inspecting the live site.
+## Demo
+
+- Run recording: [stove-store-web-record.mp4](stove-store-web-record.mp4)
+
+## Latest run
+
+3 passed / 1 failed
+
+- ✅ TC-001: Verify age of 18+ warning on first visit, hides it after Continue and reload
+- ✅ TC-002: Verify Lord Nine game is in dropdown list
+- ❌ TC-003: Verify search result count matches API total_elements — UI showed `96`, API returned `97` (off-by-one)
+- ✅ TC-004: Verify hover feature
