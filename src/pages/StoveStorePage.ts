@@ -18,6 +18,7 @@ export class StoveStorePage extends BasePage {
   readonly gameCard: (gameName: string) => Locator;
   readonly cardHoverLayer: (gameName: string) => Locator;
   readonly cardHeartButton: (gameName: string) => Locator;
+  readonly cardHoverGameName: (gameName: string) => Locator;
 
   constructor(page: Page) {
     super(page);
@@ -41,6 +42,7 @@ export class StoveStorePage extends BasePage {
     this.gameCard = (gameName) => page.getByRole("listitem").filter({ hasText: gameName }).first();
     this.cardHoverLayer = (gameName) => this.gameCard(gameName).locator(".inds-product-card-hover").first();
     this.cardHeartButton = (gameName) => this.gameCard(gameName).locator(".inds-product-card-hover-btn button");
+    this.cardHoverGameName = (gameName) => this.gameCard(gameName).locator(".inds-product-card-hover-title").first();
   }
 
   async clickAgeContinue(): Promise<void> {
@@ -60,12 +62,14 @@ export class StoveStorePage extends BasePage {
     expect(actualTitle).toEqual(expectedTitle);
   }
 
-  async searchForGame(searchTerm: string): Promise<void> {
+  async searchForGame(searchTerm: string, enterKey?: boolean): Promise<void> {
     await this.searchButton.nth(0).click({ force: true });
     await this.page.waitForTimeout(1000);
     await this.searchInput.first().fill(searchTerm);
-    await this.searchInput.first().press("Enter");
-    await this.page.waitForURL(/\/store\/search\?q=/, { timeout: 15_000 });
+    if (enterKey) {
+      await this.searchInput.first().press("Enter");
+      await this.page.waitForURL(/\/store\/search\?q=/, { timeout: 15_000 });
+    }
   }
 
   async assertFirstSearchResult(expectedText: string | RegExp): Promise<void> {
@@ -104,8 +108,12 @@ export class StoveStorePage extends BasePage {
 
   async assertCardHover(gameName: string): Promise<void> {
     await expect(this.cardHoverLayer(gameName)).toBeHidden();
+    await expect(this.cardHeartButton(gameName).nth(0)).toBeHidden();
+    await expect(this.cardHeartButton(gameName).nth(1)).toBeHidden();
     await this.hoverOnGame(gameName);
     await expect(this.cardHoverLayer(gameName)).toBeVisible();
-    await expect(this.cardHeartButton(gameName)).toBeVisible();
+    await expect(this.cardHeartButton(gameName).nth(0)).toBeVisible();
+    await expect(this.cardHeartButton(gameName).nth(1)).toBeVisible();
+    await expect(this.cardHoverGameName(gameName)).toHaveText(gameName);
   }
 }
