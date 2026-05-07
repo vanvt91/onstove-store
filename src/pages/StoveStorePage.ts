@@ -19,6 +19,7 @@ export class StoveStorePage extends BasePage {
   readonly cardHoverLayer: (gameName: string) => Locator;
   readonly cardHeartButton: (gameName: string) => Locator;
   readonly cardHoverGameName: (gameName: string) => Locator;
+  readonly totalItemsOnPage: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -43,6 +44,7 @@ export class StoveStorePage extends BasePage {
     this.cardHoverLayer = (gameName) => this.gameCard(gameName).locator(".inds-product-card-hover").first();
     this.cardHeartButton = (gameName) => this.gameCard(gameName).locator(".inds-product-card-hover-btn button");
     this.cardHoverGameName = (gameName) => this.gameCard(gameName).locator(".inds-product-card-hover-title").first();
+    this.totalItemsOnPage = page.locator(".inds-category-a-type-item");
   }
 
   async clickAgeContinue(): Promise<void> {
@@ -115,5 +117,33 @@ export class StoveStorePage extends BasePage {
     await expect(this.cardHeartButton(gameName).nth(0)).toBeVisible();
     await expect(this.cardHeartButton(gameName).nth(1)).toBeVisible();
     await expect(this.cardHoverGameName(gameName)).toHaveText(gameName);
+  }
+
+  async getTotalItemsOnAllPages(totalPages: number): Promise<number> {
+    let totalItems = 0;
+    if (totalPages === 1) {
+      totalItems = await this.totalItemsOnPage.count();
+      return totalItems;
+    } else {
+      const url = new URL(this.page.url());
+      for (let i = 1; i <= totalPages; i++) {
+        if (i !== 1) {
+          url.searchParams.set("page", i.toString());
+        }
+        await this.page.goto(url.toString(), { waitUntil: "domcontentloaded" });
+        const itemsOnPage = await expect
+          .poll(
+            async () => {
+              const count = await this.totalItemsOnPage.count();
+              return count;
+            },
+            { timeout: 5000, intervals: [100, 250, 500] },
+          )
+          .toBeGreaterThan(0)
+          .then(() => this.totalItemsOnPage.count());
+        totalItems += itemsOnPage;
+      }
+      return totalItems;
+    }
   }
 }

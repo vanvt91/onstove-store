@@ -48,23 +48,25 @@ test.describe("Onstove Store", () => {
       await app.storePage.searchForGame(SEARCH_QUERY, true);
     });
 
-    await test.step("3. Apply Product Type = Base Game", async () => {
+    await test.step("3. Apply filter", async () => {
       await app.storePage.applyFilter("Product Type", "Base Game");
-    });
-
-    await test.step("4. Apply Genre = RPG (UI has no 19+ Game Rating filter)", async () => {
       await app.storePage.applyFilter("Genre", /^RPG/);
     });
 
-    await test.step("Assert: UI count matches API total_elements", async () => {
+    await test.step("4. Assert: Total items count on UI matches with displayed result count", async () => {
       const uiCount = await app.storePage.getDisplayedResultCount();
+      expect(uiCount).toBeGreaterThan(0);
       const apiResult = await searchProducts(request, {
         q: SEARCH_QUERY,
         types: FILTER_BASE_GAME_API,
         tags: FILTER_RPG_TAG_ID,
       });
+      const totalPages = apiResult.value.total_pages;
+      const totalItemsOnAllPages = await app.storePage.getTotalItemsOnAllPages(totalPages);
+      expect(uiCount).toBe(totalItemsOnAllPages);
       expect(apiResult.value.total_elements).toBeGreaterThan(0);
-      expect(uiCount).toBe(apiResult.value.total_elements);
+      expect(totalItemsOnAllPages).toBe(apiResult.value.total_elements);
+      expect(totalItemsOnAllPages).toBe(uiCount);
     });
   });
 
