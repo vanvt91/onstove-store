@@ -30,6 +30,7 @@ credentials.json
 *.pem
 *.key
 *.p12
+.auth/
 
 # Logs
 logs/

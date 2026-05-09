@@ -5,7 +5,9 @@
   "scripts": {
     "test": "playwright test",
     "test:acceptance": "playwright test --project=acceptance",
+    "test:authenticated": "playwright test --project=authenticated",
     "test:api": "playwright test --project=api",
+    "auth:setup": "playwright test --project=setup",
     "report": "playwright show-report"
   },
   "engines": {

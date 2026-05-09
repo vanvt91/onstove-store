@@ -1,5 +1,6 @@
 import { config } from "dotenv";
 import { defineConfig, devices } from "@playwright/test";
+import { AUTH_FILE } from "./src/auth/storageState";
 
 config();
 
@@ -22,12 +23,34 @@ export default defineConfig({
 
   projects: [
     {
+      name: "setup",
+      testMatch: /auth\.setup\.ts/,
+      timeout: 10 * 60_000,
+      use: {
+        ...devices["Desktop Chrome"],
+        baseURL: BASE_URL,
+        viewport: { width: 1920, height: 1080 },
+        headless: false,
+      },
+    },
+    {
       name: "acceptance",
       testDir: "./tests/acceptance",
       use: {
         ...devices["Desktop Chrome"],
         baseURL: BASE_URL,
         viewport: { width: 1920, height: 1080 },
+      },
+    },
+    {
+      name: "authenticated",
+      testDir: "./tests/authenticated",
+      dependencies: ["setup"],
+      use: {
+        ...devices["Desktop Chrome"],
+        baseURL: BASE_URL,
+        viewport: { width: 1920, height: 1080 },
+        storageState: AUTH_FILE,
       },
     },
     {
